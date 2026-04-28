@@ -2,6 +2,17 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const parseList = (value: string | undefined): string[] => {
+  if (!value) {
+    return [];
+  }
+
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+};
+
 const parseNumber = (value: string | undefined, fallback: number): number => {
   if (!value) {
     return fallback;
@@ -34,6 +45,11 @@ export const env = {
   jwtSecret: requireEnv(process.env.JWT_SECRET, "JWT_SECRET"),
   jwtExpiresIn: process.env.JWT_EXPIRES_IN ?? "1d",
   bcryptSaltRounds: parseNumber(process.env.BCRYPT_SALT_ROUNDS, 10),
+  cors: {
+    allowedOrigins: parseList(process.env.CORS_ALLOWED_ORIGINS),
+    allowedOriginPatterns: parseList(process.env.CORS_ALLOWED_ORIGIN_PATTERNS),
+    credentials: parseBoolean(process.env.CORS_CREDENTIALS, false),
+  },
   db: {
     host: process.env.DB_HOST ?? "127.0.0.1",
     port: parseNumber(process.env.DB_PORT, 5432),

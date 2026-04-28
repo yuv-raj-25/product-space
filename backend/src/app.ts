@@ -1,13 +1,16 @@
 import cors from "cors";
 import express from "express";
 
+import { corsOptions } from "./config/cors";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler";
 import { authRoutes } from "./routes/authRoutes";
 import { taskRoutes } from "./routes/taskRoutes";
 
 const app = express();
 
-app.use(cors());
+app.set("trust proxy", 1);
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
 app.use(express.json());
 
 app.get("/api/health", (_req, res) => {
@@ -24,4 +27,3 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 export { app };
-
