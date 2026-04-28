@@ -8,7 +8,7 @@ A full-stack SaaS task management application featuring JWT authentication and p
 
 **Demo Credentials:**
 - **Email:** `test@test.com`
-- **Password:** `123456`
+- **Password:** `12345678`
 
 
 ## 🔹 Architecture & System Design
