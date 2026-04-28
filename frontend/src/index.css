@@ -5,9 +5,22 @@
 @tailwind utilities;
 
 :root {
-  color: #000000;
-  background: #ffffff;
+  --color-paper: #ffffff;
+  --color-ink: #000000;
+  --color-mist: #f5f5f5;
+  --color-quiet: #525252;
+  --color-line: #e5e5e5;
+  color: var(--color-ink);
+  background: var(--color-paper);
   font-family: "Source Serif 4", Georgia, serif;
+}
+
+.dark {
+  --color-paper: #121212;
+  --color-ink: #e5e5e5;
+  --color-mist: #1a1a1a;
+  --color-quiet: #a3a3a3;
+  --color-line: #333333;
 }
 
 * {
@@ -22,7 +35,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--color-paper);
   background-image:
     repeating-linear-gradient(
       0deg,
@@ -33,6 +46,18 @@ body {
     ),
     radial-gradient(circle at top, rgba(0, 0, 0, 0.04), transparent 45%);
   background-size: 100% 4px, 100% 100%;
+}
+
+.dark body {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(255, 255, 255, 0.025) 1px,
+      rgba(255, 255, 255, 0.025) 2px
+    ),
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.04), transparent 45%);
 }
 
 a {
@@ -86,6 +111,12 @@ textarea {
     linear-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 0, 0, 0.08) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+.dark .panel-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
 }
 
 .dark-lines {

@@ -6,35 +6,40 @@ import { DashboardPage } from "./pages/DashboardPage";
 import { LoginPage } from "./pages/LoginPage";
 import { SignupPage } from "./pages/SignupPage";
 
+import { DarkModeToggle } from "./components/DarkModeToggle";
+
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/dashboard" replace />} />
-      <Route
-        path="/login"
-        element={
-          <PublicOnlyRoute>
-            <LoginPage />
-          </PublicOnlyRoute>
-        }
-      />
-      <Route
-        path="/signup"
-        element={
-          <PublicOnlyRoute>
-            <SignupPage />
-          </PublicOnlyRoute>
-        }
-      />
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <DashboardPage />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        <Route
+          path="/login"
+          element={
+            <PublicOnlyRoute>
+              <LoginPage />
+            </PublicOnlyRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <PublicOnlyRoute>
+              <SignupPage />
+            </PublicOnlyRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+      <DarkModeToggle />
+    </>
   );
 }
 

@@ -1,14 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        paper: "#ffffff",
-        ink: "#000000",
-        mist: "#f5f5f5",
-        quiet: "#525252",
-        line: "#e5e5e5",
+        paper: "var(--color-paper)",
+        ink: "var(--color-ink)",
+        mist: "var(--color-mist)",
+        quiet: "var(--color-quiet)",
+        line: "var(--color-line)",
       },
       fontFamily: {
         display: ['"Playfair Display"', "Georgia", "serif"],
