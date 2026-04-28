@@ -2,7 +2,7 @@
 
 A full-stack SaaS task management application featuring JWT authentication and per-user task ownership.
 
-## 🔹 Live Demo & Screenshots
+## 🔹 Live Demo 
 
 **Live App:** [https://product-space-tawny.vercel.app](https://product-space-tawny.vercel.app)
 
