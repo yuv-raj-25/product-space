@@ -24,6 +24,5 @@ export const sequelize = env.db.url
     });
 
 export const connectDatabase = async (): Promise<void> => {
-  console.log(`Database connection mode: ${env.db.url ? "DATABASE_URL" : "DB_HOST/DB_PORT"}`);
   await sequelize.authenticate();
 };

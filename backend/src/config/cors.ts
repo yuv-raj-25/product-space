@@ -1,6 +1,10 @@
 import { env } from "./env";
 
-const defaultAllowedOrigins = ["http://localhost:5173", "http://127.0.0.1:5173"];
+const defaultAllowedOrigins = [
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "https://product-space-tawny.vercel.app"
+];
 
 const isOriginAllowed = (origin: string): boolean => {
   const exactOrigins = env.cors.allowedOrigins.length > 0 ? env.cors.allowedOrigins : defaultAllowedOrigins;

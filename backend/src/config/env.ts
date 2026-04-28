@@ -1,6 +1,10 @@
 import dotenv from "dotenv";
+import path from "path";
 
-dotenv.config();
+dotenv.config({
+  path: path.resolve(__dirname, "../../.env"),
+  override: true,
+});
 
 const databaseUrl = process.env.DATABASE_URL?.trim() || undefined;
 
