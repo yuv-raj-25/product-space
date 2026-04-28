@@ -51,6 +51,8 @@ export const env = {
     credentials: parseBoolean(process.env.CORS_CREDENTIALS, false),
   },
   db: {
+    url: process.env.DATABASE_URL,
+    ssl: parseBoolean(process.env.DB_SSL, false),
     host: process.env.DB_HOST ?? "127.0.0.1",
     port: parseNumber(process.env.DB_PORT, 5432),
     name: process.env.DB_NAME ?? "task_management",
