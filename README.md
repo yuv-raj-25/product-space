@@ -188,7 +188,7 @@ npm run start
 Backend base URL:
 
 ```text
-http://127.0.0.1:4000/api
+ http://localhost:4000/
 ```
 
 ### Backend Architecture
@@ -325,7 +325,7 @@ npm run preview
 Frontend local URL:
 
 ```text
-http://127.0.0.1:5173
+http://localhost:5173/
 ```
 
 ## Deployment
