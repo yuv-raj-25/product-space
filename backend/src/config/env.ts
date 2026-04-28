@@ -2,6 +2,8 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const databaseUrl = process.env.DATABASE_URL?.trim() || undefined;
+
 const parseList = (value: string | undefined): string[] => {
   if (!value) {
     return [];
@@ -51,7 +53,7 @@ export const env = {
     credentials: parseBoolean(process.env.CORS_CREDENTIALS, false),
   },
   db: {
-    url: process.env.DATABASE_URL,
+    url: databaseUrl,
     ssl: parseBoolean(process.env.DB_SSL, false),
     host: process.env.DB_HOST ?? "127.0.0.1",
     port: parseNumber(process.env.DB_PORT, 5432),
@@ -61,3 +63,7 @@ export const env = {
     logging: parseBoolean(process.env.DB_LOGGING, false),
   },
 };
+
+if (env.nodeEnv === "production" && !env.db.url) {
+  throw new Error("Missing required environment variable: DATABASE_URL");
+}

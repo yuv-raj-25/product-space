@@ -9,7 +9,7 @@ const startServer = async (): Promise<void> => {
     await sequelize.sync();
 
     app.listen(env.port, () => {
-      console.log(`Server running on port ${env.port}`);
+      console.log(`Server running on port ${env.port} in ${env.nodeEnv} mode`);
     });
   } catch (error) {
     console.error("Failed to start server", error);
@@ -18,4 +18,3 @@ const startServer = async (): Promise<void> => {
 };
 
 void startServer();
-
