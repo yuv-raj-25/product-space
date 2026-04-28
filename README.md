@@ -107,6 +107,11 @@ NODE_ENV=development
 JWT_SECRET=replace-with-a-secure-secret
 JWT_EXPIRES_IN=1d
 BCRYPT_SALT_ROUNDS=10
+CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+CORS_ALLOWED_ORIGIN_PATTERNS=
+CORS_CREDENTIALS=false
+DATABASE_URL=
+DB_SSL=false
 DB_HOST=127.0.0.1
 DB_PORT=5433
 DB_NAME=task_management
@@ -127,6 +132,12 @@ Frontend environment variables:
 
 ```env
 VITE_API_BASE_URL=http://127.0.0.1:4000/api
+```
+
+For production on Vercel, set it to your Render API URL, for example:
+
+```env
+VITE_API_BASE_URL=https://your-render-service.onrender.com/api
 ```
 
 ## Database Setup
@@ -185,6 +196,7 @@ http://127.0.0.1:4000/api
 The backend is organized by responsibility:
 
 - `config/`: environment and database connection
+- `config/cors.ts`: deployment-safe CORS allowlist configuration
 - `controllers/`: thin HTTP handlers
 - `services/`: business logic
 - `models/`: Sequelize models and associations
@@ -315,6 +327,71 @@ Frontend local URL:
 ```text
 http://127.0.0.1:5173
 ```
+
+## Deployment
+
+### Frontend on Vercel
+
+Recommended Vercel project settings:
+
+- Framework preset: `Vite`
+- Root directory: `frontend`
+- Build command: `npm run build`
+- Output directory: `dist`
+
+Set this environment variable in Vercel:
+
+```env
+VITE_API_BASE_URL=https://your-render-service.onrender.com/api
+```
+
+`frontend/vercel.json` is included so React Router routes like `/login` and `/dashboard` rewrite to `index.html` correctly.
+
+### Backend on Render
+
+Recommended Render settings:
+
+- Service type: `Web Service`
+- Root directory: `backend`
+- Build command: `npm install && npm run build`
+- Start command: `npm run start`
+
+A starter [render.yaml](/Users/yuvi/work/assignment/product-space/render.yaml) is included for the backend service.
+
+Set these environment variables in Render:
+
+```env
+NODE_ENV=production
+JWT_SECRET=your-secure-secret
+JWT_EXPIRES_IN=1d
+BCRYPT_SALT_ROUNDS=10
+DATABASE_URL=your-render-postgres-internal-url
+DB_SSL=false
+DB_LOGGING=false
+CORS_ALLOWED_ORIGINS=https://your-vercel-project.vercel.app
+CORS_ALLOWED_ORIGIN_PATTERNS=
+CORS_CREDENTIALS=false
+```
+
+If you prefer separate variables instead of `DATABASE_URL`, you can still provide `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, and `DB_PASSWORD`. On Render, `DATABASE_URL` using the internal Postgres URL is the simpler option.
+
+### CORS Strategy
+
+The backend no longer allows every origin.
+
+- `CORS_ALLOWED_ORIGINS` is a comma-separated allowlist for exact frontend URLs
+- `CORS_ALLOWED_ORIGIN_PATTERNS` allows suffix-based matches such as `.vercel.app`
+- Requests without an `Origin` header, such as Postman or server-to-server calls, are still allowed
+
+For stricter production security, prefer only exact origins in `CORS_ALLOWED_ORIGINS` and leave `CORS_ALLOWED_ORIGIN_PATTERNS` empty.
+
+If you want Vercel preview deployments to work automatically, you can optionally set:
+
+```env
+CORS_ALLOWED_ORIGIN_PATTERNS=.vercel.app
+```
+
+That is more permissive, so use it only if you actually need preview-origin support.
 
 ## Frontend Architecture
 
