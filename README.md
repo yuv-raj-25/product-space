@@ -2,7 +2,30 @@
 
 A full-stack SaaS task management application featuring JWT authentication and per-user task ownership.
 
-## Features Implemented
+## 🔹 Live Demo & Screenshots
+
+**Live App:** [https://product-space-tawny.vercel.app](https://product-space-tawny.vercel.app)
+
+**Demo Credentials:**
+- **Email:** `test@test.com`
+- **Password:** `123456`
+
+
+## 🔹 Architecture & System Design
+
+**JWT Authentication:**  
+Users authenticate securely via JSON Web Tokens. Passwords are salted and hashed using `bcrypt` before ever reaching the database. Auth state is persisted in the frontend using `localStorage` alongside a custom React Context to secure protected routes.
+
+**Multi-User Isolation:**  
+All tasks are strictly scoped to the authenticated user. Every database query (Read, Update, Delete) enforces a strict check against the `userId` extracted from the validated JWT, preventing IDOR (Insecure Direct Object Reference) vulnerabilities and ensuring complete data privacy.
+
+**Database Schema:**  
+Built natively on PostgreSQL using the Sequelize ORM.
+- **`Users` Table:** `id` (PK), `name`, `email` (Unique Index), `password`
+- **`Tasks` Table:** `id` (PK), `title`, `description`, `status` (Enum: `Pending` | `Completed`), `userId` (FK -> Users.id)
+- **Relationships:** 1-to-Many (`User` hasMany `Tasks`)
+
+## 🔹 Features Implemented
 
 - **Authentication System**: User signup, login, and secure session management using JWT.
 - **Security**: Password hashing with `bcrypt` and protected backend routes.
